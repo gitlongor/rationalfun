@@ -4,9 +4,14 @@ export(rationalfun.poly)
 export(rfun)
 export(rfun.poly)
 export(simplify)
-importFrom(polynom,integral)
+
+#importFrom(polynom,integral)
 importFrom(stats,deriv)
 importFrom(stats,predict)
+
+S3method(rationalfun, default)
+S3method(rationalfun, polynomial)
+
 S3method(as.character,rationalfun)
 S3method(as.function,rationalfun)
 S3method(deriv,rationalfun)

@@ -30,8 +30,11 @@ simplify <- function(x, ...)
 .add <- function(e1, e2, ...)
 {
     if(missing(e2)) return(e1);
-    e1 <- simplify(e1);
-    e2 <- simplify(e2);
+	simpFlag= attr(e1, 'simplified') || attr(e2, 'simplified')
+    if(FALSE) {
+		e1 <- simplify(e1);
+		e2 <- simplify(e2);
+	}
     p1 <- e1$numerator;
     q1 <- e1$denominator;
     p2 <- e2$numerator;
@@ -41,7 +44,7 @@ simplify <- function(x, ...)
     l2 <- q2 / gcd;
     denom <- q1 * q2 / gcd;
     numer <- p1 * l2 + p2 * l1;
-    return(rationalfun.poly(numer, denom));
+    return((rationalfun(numer, denom, simpFlag)));
 }
 
 .subtract <- function(e1, e2, ...)
@@ -52,19 +55,22 @@ simplify <- function(x, ...)
 
 .multiply <- function(e1, e2, ...)
 {
-    e1 <- simplify(e1);
-    e2 <- simplify(e2);
+	simpFlag= attr(e1, 'simplified') || attr(e2, 'simplified')
+    if(FALSE) {
+		e1 <- simplify(e1);
+		e2 <- simplify(e2);
+	}
     p1 <- e1$numerator;
     q1 <- e1$denominator;
     p2 <- e2$numerator;
     q2 <- e2$denominator;
-    e1 <- rationalfun.poly(p1, q2);
-    e2 <- rationalfun.poly(p2, q1);
-    e1 <- simplify(e1);
-    e2 <- simplify(e2);
+    #e1 <- rationalfun.poly(p1, q2);
+    #e2 <- rationalfun.poly(p2, q1);
+    #e1 <- simplify(e1);
+    #e2 <- simplify(e2);
     numer <- e1$numerator * e2$numerator;
     denom <- e1$denominator * e2$denominator;
-    return(rationalfun.poly(numer, denom));
+    return((rationalfun(numer, denom, simpFlag)));
 }
 
 .divide <- function(e1, e2, ...)

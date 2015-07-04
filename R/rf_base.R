@@ -60,13 +60,19 @@
 ##'     print(r2)
 ##' }
 # Functions in "polynom" package will handle most of the exceptions
-rationalfun <- function(numer = c(0, 1), denom = c(1, 1, 1))
+rationalfun = function(numer, denom,...) UseMethod('rationalfun',numer)
+rationalfun.default <- function(numer = c(0, 1), denom = 1, SIMPLIFY=FALSE,...)
 {
     fun <- list(numerator = polynomial(numer),
                 denominator = polynomial(denom));
     if(.is_zero_polynomial(fun$denominator))
         stop("denominator should not be 0");
-    return(structure(fun, class = "rationalfun"));
+	ans=structure(fun, class = "rationalfun")
+	if(isTRUE(SIMPLIFY)){
+			ans=simplify(ans)
+			attr(ans, 'simplified')=TRUE
+	}else 	attr(ans, 'simplified')=FALSE
+	ans
 }
 
 ##' @rdname rationalfun
@@ -76,8 +82,8 @@ rfun <- rationalfun;
 
 ##' @rdname rationalfun
 ##' @export
-rationalfun.poly <- function(numer = polynomial(c(0, 1)),
-                             denom = polynomial(c(1, 1, 1)))
+rationalfun.polynomial <- function(numer = polynomial(c(0, 1)),
+                             denom = polynomial(1), SIMPLIFY=FALSE,...)
 {
     if(!is.polynomial(numer) | !is.polynomial(denom))
         stop("numer and denom should objects of class 'polynomial'");
@@ -85,9 +91,15 @@ rationalfun.poly <- function(numer = polynomial(c(0, 1)),
                 denominator = denom);
     if(.is_zero_polynomial(fun$denominator))
         stop("denominator should not be 0");
-    return(structure(fun, class = "rationalfun"));
+    ans= structure(fun, class = "rationalfun")
+	if(isTRUE(SIMPLIFY)){
+			ans=simplify(ans)
+			attr(ans, 'simplified')=TRUE
+	}else 	attr(ans, 'simplified')=FALSE
+	ans
 }
 
+rationalfun.poly = rationalfun.polynomial
 ##' @rdname rationalfun
 ##' @export
 # Alias of "rationalfun.poly"
