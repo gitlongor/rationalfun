@@ -1,6 +1,6 @@
 Package: rationalfun
 Version: 0.1-1
-Date: 2015-07-04
+Date: 2015-07-06
 Title: Manipulation of Rational Functions
 Description: This package provides several functions to
     manipulate rational functions, including basic
@@ -9,7 +9,7 @@ Description: This package provides several functions to
 Author: Yixuan Qiu <yixuan.qiu@cos.name>, Long Qu <long.qu@wright.edu>
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Depends:
-    polynom
+    polynomBigQ
 Imports:
     stats
 URL: https://github.com/yixuan/rationalfun
